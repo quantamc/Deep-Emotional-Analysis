@@ -702,40 +702,44 @@ class Emotiv(object):
                     sensor_data.append(k[0])
                 print "Battery: %i" % g_battery
                 self.writer(sensor_data)
-                gevent.sleep(2)
+                gevent.sleep(00000.1)
 
-
-                self.writer(sensor_data)
                 sensor_data = []
                 print(sensor_data)
 
+
+
     def writer(self, data):
-        path_to_file = "./lucky_happy.csv"
+        ts = time.time()
+        import datetime
+        st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S:%f')
+        path_to_file = "./thabo.csv"
 
         if os.path.exists(path_to_file) == False:
             raw_file = open(path_to_file, 'w')
             writer = csv.writer(raw_file)
-            writer.writerow(['Y', 'X', 'F3', 'F4', 'P7', 'FC6', 'F7', 'F8', 'T7', 'P8', 'FC5', 'AF4', 'T8', '02', '01', 'AF3', 'state'])
+            writer.writerow(['Y', 'X', 'F3', 'F4', 'P7', 'FC6', 'F7', 'F8', 'T7', 'P8', 'FC5', 'AF4', 'T8', '02', '01', 'AF3', 'time'])
             writer.writerow([data[0], data[13], data[1], data[2], data[3], data[4], data[5], data[6],
                              data[7], data[8], data[9], data[10],
-                             data[12], data[14], data[15], data[16], Emotiv.rec_status])
+                             data[12], data[14], data[15], data[16], st])
 
         else:
             raw_file = open(path_to_file, 'a')
             writer = csv.writer(raw_file)
             writer.writerow([data[0], data[13], data[1], data[2], data[3], data[4], data[5], data[6],
                              data[7], data[8], data[9], data[10],
-                             data[12], data[14], data[15], data[16], Emotiv.rec_status])
+                             data[12], data[14], data[15], data[16], st])
 
 
 import time
 import threading
 if __name__ == "__main__":
+    
     a = Emotiv()
     try:
-        while 1:
-            emotion = 'scared'
-            select = input("Press 1 for happy or 0 for neutral session")
+        while 1:                 
+            emotion = 'test'
+            select = input("Press 1 for emotion or 0 for neutral session")
             if select == 1:
                 Emotiv.rec_status = emotion
 

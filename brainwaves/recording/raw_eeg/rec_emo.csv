@@ -1,0 +1,5 @@
+signal,state
+kg_disgust.csv, disgust
+kg_happy.csv, happy
+lu_happy.csv, happy
+lu_disgust.csv, disgust
